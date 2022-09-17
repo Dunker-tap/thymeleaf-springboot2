@@ -15,16 +15,24 @@ spring:
     url: jdbc:mysql://localhost:3306/ems-thymeleaf?characterEncoding=UTF-8
     username: root
     password: root
+  web:
+    resources:
+      static-locations: classpath:/static/,file:${photo.file.dir} #暴露哪些资源可以通过项目名访问，通过这中方法后端只需要保存一个文件名即可
 
 # mybatis配置
 mybatis:
-    mapper-locations: classpath:com/baizhi/mapper/*.xml
-    type-aliases-package: com.baizhi.entity
+  mapper-locations: classpath:com/baizhi/mapper/*.xml
+  type-aliases-package: com.baizhi.entity
 
 # 日志配置
 logging:
   level:
     root: info
     com.baizhi: debug
+
+# 指定文件上传的位置
+photo:
+  file:
+    dir: E:\IDEA\ems-thymeleaf\photos
 
 

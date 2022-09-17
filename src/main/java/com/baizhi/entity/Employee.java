@@ -7,7 +7,7 @@ public class Employee {
     private String name;
     private Double salary;
     private Date birthday;
-    private String photo;//头像路径
+    private String photo;//头像图片的存放路径
 
     public Employee() {
     }

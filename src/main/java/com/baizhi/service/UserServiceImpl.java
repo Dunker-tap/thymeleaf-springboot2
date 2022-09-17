@@ -5,13 +5,14 @@ import com.baizhi.entity.User;
 import com.baizhi.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.nio.charset.StandardCharsets;
 
-@Controller
+@Service
 //控制事务
 @Transactional
 public class UserServiceImpl implements UserService {

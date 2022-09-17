@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class MvcConfig  implements WebMvcConfigurer {
+public class MvcConfig implements WebMvcConfigurer {
 
 
     //通过这里面配置: 不需要为每一个访问thymeleaf模板页面单独开发一个controller请求了
@@ -16,7 +16,7 @@ public class MvcConfig  implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("redirect:/login");
         registry.addViewController("login").setViewName("login");
         registry.addViewController("register").setViewName("regist");
+        //解决thymeleaf点击连接不能直接跳转问题
         registry.addViewController("addEmp").setViewName("addEmp");
-
     }
 }
