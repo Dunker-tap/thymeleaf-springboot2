@@ -29,4 +29,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void save(Employee employee) {
         employeeDao.save(employee);
     }
+
+    @Override
+    public Employee findById(Integer id) {
+        return employeeDao.findById(id);
+    }
+
+    @Override
+    public void update(Employee employee) {
+        employeeDao.update(employee);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        employeeDao.delete(id);
+    }
 }

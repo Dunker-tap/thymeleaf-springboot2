@@ -15,9 +15,10 @@ spring:
     url: jdbc:mysql://localhost:3306/ems-thymeleaf?characterEncoding=UTF-8
     username: root
     password: root
+  #暴露哪些资源可以通过项目名访问，通过这中方法后端只需要保存一个文件名即可
   web:
     resources:
-      static-locations: classpath:/static/,file:${photo.file.dir} #暴露哪些资源可以通过项目名访问，通过这中方法后端只需要保存一个文件名即可
+      static-locations: classpath:/static/,file:${photo.file.dir}
 
 # mybatis配置
 mybatis:

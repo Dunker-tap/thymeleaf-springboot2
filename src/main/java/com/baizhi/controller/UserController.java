@@ -1,7 +1,6 @@
 package com.baizhi.controller;
 
 import com.baizhi.entity.User;
-//import com.baizhi.service.UserService;
 import com.baizhi.service.UserServiceImpl;
 import com.baizhi.utils.VerifyCodeUtils;
 import org.slf4j.Logger;
@@ -26,19 +25,24 @@ public class UserController {
         this.userService = userService;
     }
 
+    @RequestMapping("logout")
+    public String logout(HttpSession session) {
+        session.invalidate();//session失效，安全退出
+        return "redirect:/login";//跳转到登录界面
+    }
+
     /**
      * 用户登录方法
      */
-
     @RequestMapping("login")
-    public String login(String username,String password,HttpSession session){
-        log.debug("本次登录用户名: {}",username);
-        log.debug("本次登录密码: {}",password);
+    public String login(String username, String password, HttpSession session) {
+        log.debug("本次登录用户名: {}", username);
+        log.debug("本次登录密码: {}", password);
         //调用业务层进行登录
         try {
-            User user = userService.login(username,password);
+            User user = userService.login(username, password);
             //保存用户信息到session对象中
-            session.setAttribute("user",user);
+            session.setAttribute("user", user);
         } catch (Exception e) {
             e.printStackTrace();
             return "redirect:/login";
@@ -50,17 +54,18 @@ public class UserController {
 
     /**
      * 用户注册
+     *
      * @return
      */
     @RequestMapping("register")
-    public String register(User user, String code,HttpSession session){
-        log.debug("用户名: {},真是姓名: {},密码: {},性别: {},",user.getUsername(),user.getRealname(),user.getPassword(),user.getGender());
-        log.debug("用户输入验证码: {}",code);
+    public String register(User user, String code, HttpSession session) {
+        log.debug("用户名: {},真是姓名: {},密码: {},性别: {},", user.getUsername(), user.getRealname(), user.getPassword(), user.getGender());
+        log.debug("用户输入验证码: {}", code);
 
         try {
             //1.判断用户输入验证码和session中验证码是否一致
             String sessionCode = session.getAttribute("code").toString();
-            if(!sessionCode.equalsIgnoreCase(code))throw new RuntimeException("验证码输入错误!");
+            if (!sessionCode.equalsIgnoreCase(code)) throw new RuntimeException("验证码输入错误!");
             //如果比较通过了，进行用户注册
             //2.注册用户
             userService.register(user);
@@ -68,8 +73,9 @@ public class UserController {
             e.printStackTrace();
             return "redirect:/register"; //注册失败重新回到注册
         }
-        return  "redirect:/login";  //注册成功跳转到登录
+        return "redirect:/login";  //注册成功跳转到登录
     }
+
     /**
      * 1.生成4位随机数
      * 2.保存到session作用域
@@ -81,10 +87,10 @@ public class UserController {
         //1.生成4位随机数
         String code = VerifyCodeUtils.generateVerifyCode(4);
         //2.保存到session作用域
-        session.setAttribute("code",code);
+        session.setAttribute("code", code);
         //3.根据随机数生成图片 && 4.通过response响应图片  && 5.设置响应类型
         response.setContentType("image/png");
         ServletOutputStream os = response.getOutputStream();
-        VerifyCodeUtils.outputImage(220,60, os,code);
+        VerifyCodeUtils.outputImage(220, 60, os, code);
     }
 }
